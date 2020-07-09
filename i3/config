@@ -1,0 +1,249 @@
+#######################################################
+#  Configuración i3 ~/.config/i3/config
+#
+#  www.pinguytaz.net
+######################################################
+
+### Definimos la tecla Windows como la MOD. (Mod1=Alt) ###
+set $mod Mod4
+
+### Cambios de Layout container ###
+bindsym $mod+e layout toggle split
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+
+### Esencial Varios ###
+bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+r restart
+# Menú de salida, apagar y reiniciar
+set $mode_salida Opciones: [s]alir [a]pagar [r]einiciar
+bindsym $mod+Shift+e mode "$mode_salida"
+mode "$mode_salida" {
+    bindsym s exec i3-msg exit
+    bindsym a exec systemctl poweroff
+    bindsym r exec systemctl rebbot
+
+    bindsym Escape mode "default"
+    bindsym Return mode "default"
+}
+# Mata la ventana (aplicacion ) en foco.
+bindsym $mod+Shift+q kill
+
+# Gestion menu de aplicaciones "rofi"
+bindsym $mod+d exec rofi -modi run -show drun -show-icons 
+bindsym $mod+Tab exec rofi -show window -show-icons 
+#bindsym $mod+d exec dmenu_run
+#bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+
+#### Lanzador aplicaciones Internet
+set $mode_lanzador Internet: [m]ail [c]hrome [f]irefox [o]pera
+bindsym $mod+o mode "$mode_lanzador"
+mode "$mode_lanzador" {
+    bindsym f exec firefox
+    bindsym m exec thunderbird
+    bindsym o exec opera
+    bindsym c exec google-chrome
+
+    bindsym Escape mode "default"
+    bindsym Return mode "default"
+}
+
+
+### Bloqueo del equipo
+bindsym $mod+b exec --no-startup-id i3lock
+
+### Espacios de Trabajo ###
+# Variables con los nombres de los espacio
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9:MV"
+for_window [class="VirtualBox Machine"] move container to workspace $ws9, layout tabbed
+
+set $ws10 "10:www"
+for_window [class="Opera"] move container to workspace $ws10, layout tabbed, title_format "Opera" 
+for_window [class="Thunderbird"] move container to workspace $ws10, layout tabbed, title_format "Mail"
+for_window [class="Google-chrome"] move container to workspace $ws10, layout tabbed, title_format "Chrome" 
+for_window [class="Firefox"]  move container to workspace $ws10, layout tabbed, title_format "Firefox" 
+
+# Cambios a espacio de trabajo
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws10
+#  mueva aplicacion a espacio de trabajo
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10
+# Cambiar Workspace de monitor
+bindsym $mod+Shift+o move workspace to output right
+bindsym $mod+Shift+p move workspace to output primary
+
+
+### Gestion de ventanas ###
+# Cambia el Foco de las ventanas
+bindsym $mod+j focus left
+bindsym $mod+k focus down
+bindsym $mod+l focus up
+bindsym $mod+ntilde focus right
+# Lo mismo con los cursores
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# Mueve las ventanas
+bindsym $mod+Shift+j move left
+bindsym $mod+Shift+k move down
+bindsym $mod+Shift+l move up
+bindsym $mod+Shift+ntilde move right
+# Lo mismo con los cursores
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+###Redimension de ventana
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+# resize window (you can also use the mouse for that)
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+
+        # Pressing left will shrink the window’s width.
+        # Pressing right will grow the window’s width.
+        # Pressing up will shrink the window’s height.
+        # Pressing down will grow the window’s height.
+        bindsym j resize shrink width 10 px or 10 ppt
+        bindsym k resize grow height 10 px or 10 ppt
+        bindsym l resize shrink height 10 px or 10 ppt
+        bindsym ntilde resize grow width 10 px or 10 ppt
+
+        # same bindings, but for the arrow keys
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+
+        # back to normal: Enter or Escape or $mod+r
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+r mode "default"
+}
+bindsym $mod+r mode "resize"
+
+
+#  Ponemos en pantalla completa
+bindsym $mod+f fullscreen toggle
+# Cambia a modo flotante la ventana
+bindsym $mod+Shift+space floating toggle
+# Cambia el foco de tiling a flotante (con ventanas mixtas)
+bindsym $mod+space focus mode_toggle
+# focus the parent container
+bindsym $mod+a focus parent
+# focus the child container
+#bindsym $mod+d focus child
+
+# Como dividir la proxima ventana
+bindsym $mod+h split h
+bindsym $mod+v split v
+
+
+### Modo scratchpad   Espacio escondido. ###
+# Mover ventana al scratchpad
+bindsym $mod+Shift+minus move scratchpad
+# Mostrar scratchpad
+bindsym $mod+minus scratchpad show
+
+
+####   Configuraciones, aplicaciones fondo pantalla, font, barra
+# Tipo de letra
+font pango:monospace 10
+
+######## Aplicaciones que se inician al principio
+#Fondo de pantalla
+exec --no-startup-id feh --bg-fill ~/.config/i3/Fondo.jpg
+# xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
+# screen before suspend. Use loginctl lock-session to lock your screen.
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+# Gestor de red
+exec --no-startup-id nm-applet
+#DropBox 
+#     1.- update
+#exec --no-startup-id dropbox start
+
+
+
+###  Definicion de las barras de estado ###
+# Color 
+set $bg-color            #000000
+set $text-color          #f3f4f5
+set $inactive-bg-color   #2f343f
+set $inactive-text-color #676E7D
+set $blue-color          #5DA8F4
+set $urgent-bg-color     #E53935
+bar {
+        id bar-1
+        position top
+        output eDP-1
+        output HDMI-1
+        status_command py3status -c ~/.config/i3/py3status.conf
+        # Mostramos botone en WorkSpace y ocultamos numero en los WS con nombre
+        workspace_buttons true  
+        strip_workspace_numbers yes 
+        # Bandeja VCL, nm-gnome,...
+        tray_output primary 
+        #tray_output eDP-1 
+
+        font pango:sans, awesome 10
+        #status_command i3status --config ~/.config/i3/i3status.conf
+
+        # Color de la barra
+        colors {
+                background $bg-color
+                separator #757575
+                #border  background   text
+                focused_workspace  $bg-color $bg-color  $text-color
+                inactive_workspace $inactive-bg-color $inactive-bg-color $inactive-text-color
+                urgent_workspace   $blue-color   $blue-color   $text-color
+        }
+}
+
+# Sonido ajuste PulseAudio.
+set $refresh_i3status killall -SIGUSR1 i3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+
+
+
+#############  Aplicaciones que se recomienda usar en TAB pues tiene varias o apilado   ##########
+#      Obtenemos WM_CLASS con xprop
+#for_window [class="XXXXX"] move container to workspace $wsYY, layout tabbed, title_format "NNNN" 
+# Zoom para que sus ventanas se abran en TAB se podria pasar a un WS.
+for_window [class="zoom"] layout tabbed
+
+##################### Info
+#notify-send "Hello, i3"      // Para enviar Notificaciones
+#i3-msg                       // Envia mensaje para manipular i3wm, ejemplo salir "exit", cambio workspace 3.
+#i3-lock
