@@ -2,6 +2,8 @@
 #  Configuración i3 ~/.config/i3/config
 #
 #  www.pinguytaz.net
+# 
+#  Instalar rofi, feh, xss-lock, policykit-1-gnome, py3status
 ######################################################
 
 ### Definimos la tecla Windows como la MOD. (Mod1=Alt) ###
@@ -22,7 +24,7 @@ bindsym $mod+Shift+e mode "$mode_salida"
 mode "$mode_salida" {
     bindsym s exec i3-msg exit
     bindsym a exec systemctl poweroff
-    bindsym r exec systemctl rebbot
+    bindsym r exec systemctl reboot
 
     bindsym Escape mode "default"
     bindsym Return mode "default"
@@ -65,10 +67,11 @@ set $ws7 "7"
 set $ws8 "8"
 set $ws9 "9:MV"
 for_window [class="VirtualBox Machine"] move container to workspace $ws9, layout tabbed
+for_window [class="VirtualBox Manager"] move container to workspace $ws9, layout tabbed
 
 set $ws10 "10:www"
 for_window [class="Opera"] move container to workspace $ws10, layout tabbed, title_format "Opera" 
-for_window [class="Thunderbird"] move container to workspace $ws10, layout tabbed, title_format "Mail"
+for_window [class="thunderbird"] move container to workspace $ws10, layout tabbed, title_format "Mail"
 for_window [class="Google-chrome"] move container to workspace $ws10, layout tabbed, title_format "Chrome" 
 for_window [class="Firefox"]  move container to workspace $ws10, layout tabbed, title_format "Firefox" 
 
@@ -187,6 +190,9 @@ exec --no-startup-id feh --bg-fill ~/.config/i3/Fondo.jpg
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 # Gestor de red
 exec --no-startup-id nm-applet
+#Gestor politicas de autentificación instalar policykit-1-gnome.
+exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
+
 #DropBox 
 #     1.- update
 #exec --no-startup-id dropbox start
