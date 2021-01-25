@@ -1,0 +1,13 @@
+# Query my default IP address only on startup
+[temperatura]
+command=../bin/Temperatura
+sensor=CPU
+interval=30
+color=#5BDC68
+
+[temperatura]
+command=../bin/Temperatura
+sensor=HD
+interval=30
+color=#068D13
+

@@ -65,13 +65,19 @@ set $ws5 "5"
 set $ws6 "6"
 set $ws7 "7"
 set $ws8 "8"
-set $ws9 "9:MV"
-for_window [class="VirtualBox Machine"] move container to workspace $ws9, layout tabbed
+#for_window [class="zoom"] move container to workspace $ws8, layout tabbed
+set $ws9 "9:9-MV"
+###################### Virtual Box  Las Maquinas, no el manager, van a MV en flotante
 for_window [class="VirtualBox Manager"] move container to workspace $ws9, layout tabbed
+#for_window [class="VirtualBox Machine"] move container to workspace $ws9, floating enabled
+for_window [class="VirtualBox Machine"] move container to workspace $ws9, layout tabbed
+################# QEMU solo las ventanas de maquina van a MV y en flotante.
+#for_window [title="QEMU/KVM$"] move container to workspace $ws9, floating enabled
+#for_window [class="Virt-manager"] move container to workspace $ws9, layout tabbed
 
-set $ws10 "10:www"
+set $ws10 "10:10-www"
 for_window [class="Opera"] move container to workspace $ws10, layout tabbed, title_format "Opera" 
-for_window [class="thunderbird"] move container to workspace $ws10, layout tabbed, title_format "Mail"
+for_window [class="Thunderbird"] move container to workspace $ws10, layout tabbed, title_format "Mail"
 for_window [class="Google-chrome"] move container to workspace $ws10, layout tabbed, title_format "Chrome" 
 for_window [class="Firefox"]  move container to workspace $ws10, layout tabbed, title_format "Firefox" 
 
@@ -185,6 +191,8 @@ font pango:monospace 10
 ######## Aplicaciones que se inician al principio
 #Fondo de pantalla
 exec --no-startup-id feh --bg-fill ~/.config/i3/Fondo.jpg
+#exec --no-startup-id ~/.config/i3/resolucion.sh
+
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
@@ -247,7 +255,7 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 #      Obtenemos WM_CLASS con xprop
 #for_window [class="XXXXX"] move container to workspace $wsYY, layout tabbed, title_format "NNNN" 
 # Zoom para que sus ventanas se abran en TAB se podria pasar a un WS.
-for_window [class="zoom"] layout tabbed
+#for_window [class="zoom"] layout tabbed
 
 ##################### Info
 #notify-send "Hello, i3"      // Para enviar Notificaciones

@@ -1,0 +1,38 @@
+#!/usr/bin/bash
+#############################################################
+#  Autor:  Pinguytaz
+#
+# Script para visualizar los sensores de temperatura en la barra de i3-wm
+#
+#
+#############################################################
+
+#Package id 0:
+#Core 0:
+#Core 1:
+#Core 2:
+#Core 3:
+#temp1:        El primero el del WIFI
+#Composite:    Este es el del dico duro
+#temp1:        El segundo el de acpitz
+
+SENSOR=${sensor:-CPU}
+
+if test "$SENSOR" == "CPU" 
+then
+   temperatura=$(sensors -j | jq -c '."coretemp-isa-0000"."Package id 0"."temp1_input"')
+elif test "$SENSOR" == "HD" 
+then
+   temperatura=$(sensors -j | jq -c '."nvme-pci-0200"."Composite"."temp1_input"')
+elif test "$SENSOR" == "WIFI" 
+then
+   temperatura=$(sensors -j | jq -c '."iwlwifi_1-virtual-0"."temp1"."temp1_input"')
+else
+   temperatura=$(sensors -j | jq -c $sensor)
+   critica=0
+   salida="ortro $SENSOR-"
+fi
+
+salida="<b>$(xrescat i3xrocks.label.thermometer )$SENSOR</b> $temperaturaºC"
+
+echo $salida
