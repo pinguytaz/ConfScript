@@ -6,6 +6,10 @@ Repositorio de Script y configuraciones para Linux
 
 ## "Script" Guiones de shell normalmente usados.
 1. **"IP_Publica.sh"** Obtener la IP publica con la que nos estamos conectando a la red.
+2. **"Camaras.sh"** Configuración de camaras con el modulo Prixton USB de captura de RCA.
+3. **"i3xrocks\"** modulos de barra de menu para Regolith
+   **  Modulo para visualizar información de temperatura recogido con sensors con JSON
+
 
 ## "i3" Configuraciones para el funcionamiento de "i3wm" 
 1. "**config**" Es el fichero de configuración de i3 se añade al standard
