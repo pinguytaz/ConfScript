@@ -21,3 +21,9 @@ Repositorio de Script y configuraciones para Linux
 
 3. **"py3status.conf"**  Fichero de configuración de barra de estado con programa "py3status".
 
+## "OBS" Presentación de OBS y Script de configuración" 
+1. **"OBS.pdf"**  Presentacion de OBS
+2. **"OBS-Zoom.sh"**  Prepara con PulseAudio los dispositivos para audio OBS-Zoom
+
+
+
